@@ -1,0 +1,11 @@
+{
+	"refresh": {
+		"type": "calculate",
+		"objects": [
+			{
+			"database": "Simple Incremental refresh - configgured",
+			"table": "FactOnlineSales"
+			}
+		]
+	}
+}

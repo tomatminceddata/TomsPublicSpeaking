@@ -1,0 +1,13 @@
+{
+"refresh": {
+	"type": "DataOnly",
+	"applyRefreshPolicy": true,
+	"effectiveDate": "02/01/2007",
+	"objects": [
+		{
+		"database": "Simple Incremental refresh - configgured",
+		"table": "FactOnlineSales"
+		}
+	]
+}
+}

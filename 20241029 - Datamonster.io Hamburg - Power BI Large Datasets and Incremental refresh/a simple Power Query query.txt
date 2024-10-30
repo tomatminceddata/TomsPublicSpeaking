@@ -1,0 +1,20 @@
+let
+    
+    //the next wo lines needs are representing my environment
+    Source = Sql.Database("tmaSQLonVMinWE,1433", "ContosoRetailDW"),
+    dbo_FactOnlineSales = Source{[Schema="dbo",Item="FactOnlineSales"]}[Data],
+
+    //The below filter is creatend inside Power Query using the Date Filter, the filter is required before
+    //the configuration of the refresh policy via the dialog can be started. This filter is using two parameters.
+    //These parameters are also required, read everything here:
+    //https://learn.microsoft.com/en-us/power-bi/connect-data/incremental-refresh-overview
+    #"Filtered Rows" = Table.SelectRows(dbo_FactOnlineSales, each [DateKey] >= RangeStart and [DateKey] < RangeEnd)
+
+
+    //The below filter is used to create an empty table. This empty table prevents the initial load.
+    //Of course this filter has to be removed before the refresh of single partitions is started via the xmla
+    //endpoint. Removing this filter can be done using Tabular Editor, or the ALM toolkit
+    //This video explains how that works:https://www.youtube.com/watch?v=5AWt6ijJG94
+    //#"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each [ProductKey] = -1)
+in
+    #"Filtered Rows"
